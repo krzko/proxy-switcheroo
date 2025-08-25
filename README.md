@@ -4,14 +4,14 @@ A smart WebExtension that automatically switches proxy settings based on network
 
 ## ✨ Features
 
-### 🎯 **Intelligent Proxy Switching**
+### Intelligent Proxy Switching
 
 - **Automatic detection** of network changes and conditions
 - **IFTTT-style rules** for flexible automation triggers
 - **Manual override** with one-click profile switching
 - **Real-time evaluation** with configurable intervals
 
-### 🌐 **Multiple Proxy Support**
+### Multiple Proxy Support
 
 - **Direct connection** (no proxy)
 - **System proxy** settings
@@ -19,7 +19,7 @@ A smart WebExtension that automatically switches proxy settings based on network
 - **PAC scripts** for complex routing
 - **Per-request routing** with hostname patterns
 
-### 🔍 **Smart Triggers**
+### Smart Triggers
 
 - **DNS resolution** testing (detect corporate networks)
 - **IP geolocation** checking (identify network provider)
@@ -28,7 +28,7 @@ A smart WebExtension that automatically switches proxy settings based on network
 - **Time windows** (work hours automation)
 - **Manual flags** (custom conditions)
 
-### 🎛️ **User Interface**
+### User Interface
 
 - **Popup interface** for quick profile switching
 - **Comprehensive options page** for configuration
@@ -36,7 +36,7 @@ A smart WebExtension that automatically switches proxy settings based on network
 - **Import/export** configuration management
 - **Status monitoring** with evaluation logs
 
-### 🔧 **Enterprise Ready**
+### Enterprise Ready
 
 - **Secure credential handling** (Base64 auth headers)
 - **Configuration backup/restore**
