@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Switcheroo</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <h1>Proxy Switcheroo</h1>
+      <button id="options-btn" class="options-btn" title="Open options">⚙️</button>
+    </header>
+
+    <main class="popup-content">
+      <section class="mode-section">
+        <div class="toggle-container">
+          <label for="auto-mode-toggle" class="toggle-label">
+            <span class="toggle-text">Auto Mode</span>
+            <div class="toggle-switch">
+              <input type="checkbox" id="auto-mode-toggle" class="toggle-input">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="profile-section">
+        <label for="profile-select" class="profile-label">Active Profile:</label>
+        <select id="profile-select" class="profile-select">
+          <option value="">Loading...</option>
+        </select>
+      </section>
+
+      <section class="status-section">
+        <div class="status-item">
+          <span class="status-label">Status:</span>
+          <span id="status-text" class="status-value">Initialising...</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Last Rule:</span>
+          <span id="last-rule" class="status-value">None</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Last Check:</span>
+          <span id="last-check" class="status-value">Never</span>
+        </div>
+      </section>
+
+      <section class="actions-section">
+        <button id="apply-now-btn" class="action-btn primary">Apply Now</button>
+        <button id="refresh-btn" class="action-btn secondary">Refresh</button>
+      </section>
+
+      <section class="quick-actions">
+        <button id="direct-btn" class="quick-action-btn">Direct</button>
+        <button id="system-btn" class="quick-action-btn">System</button>
+      </section>
+    </main>
+
+    <footer class="popup-footer">
+      <div class="version">v0.1.0</div>
+      <div class="links">
+        <a href="#" id="logs-link">View Logs</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="popup/popup.js"></script>
+</body>
+</html>

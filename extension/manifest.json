@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "Proxy Switcheroo",
+  "version": "0.1.0",
+  "description": "A rules based network/proxy switcher extension for your browser.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "proxy-switcheroo@krzko.github.com",
+      "strict_min_version": "115.0"
+    }
+  },
+  "permissions": [
+    "proxy",
+    "storage",
+    "alarms",
+    "notifications",
+    "captivePortal",
+    "dns"
+  ],
+  "optional_permissions": [
+    "browsingData"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background/index.js"],
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Proxy Switcheroo",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["vendor/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

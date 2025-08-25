@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Switcheroo - Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <header class="options-header">
+      <h1>Proxy Switcheroo Options</h1>
+      <div class="header-actions">
+        <button id="import-btn" class="btn secondary">Import Config</button>
+        <button id="export-btn" class="btn secondary">Export Config</button>
+      </div>
+    </header>
+
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="profiles">Profiles</button>
+      <button class="tab-btn" data-tab="rules">Rules</button>
+      <button class="tab-btn" data-tab="logs">Logs</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </nav>
+
+    <main class="options-content">
+      <!-- Profiles Tab -->
+      <section id="profiles-tab" class="tab-content active">
+        <div class="section-header">
+          <h2>Proxy Profiles</h2>
+          <button id="add-profile-btn" class="btn primary">Add Profile</button>
+        </div>
+        
+        <div id="profiles-list" class="profiles-list">
+          <div class="loading">Loading profiles...</div>
+        </div>
+
+        <!-- Profile Editor Modal -->
+        <div id="profile-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="profile-modal-title">Add Profile</h3>
+              <button class="modal-close">&times;</button>
+            </div>
+            <form id="profile-form" class="modal-body">
+              <div class="form-group">
+                <label for="profile-name">Profile Name:</label>
+                <input type="text" id="profile-name" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="profile-mode">Mode:</label>
+                <select id="profile-mode" required>
+                  <option value="direct">Direct Connection</option>
+                  <option value="system">System Proxy</option>
+                  <option value="manual">Manual Configuration</option>
+                  <option value="pac">PAC Script</option>
+                  <option value="perRequest">Per-Request Rules</option>
+                </select>
+              </div>
+
+              <!-- Manual Configuration -->
+              <div id="manual-config" class="config-section hidden">
+                <h4>Manual Proxy Configuration</h4>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="http-host">HTTP Proxy:</label>
+                    <div class="input-group">
+                      <input type="text" id="http-host" placeholder="host">
+                      <input type="number" id="http-port" placeholder="port" min="1" max="65535">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="https-host">HTTPS Proxy:</label>
+                    <div class="input-group">
+                      <input type="text" id="https-host" placeholder="host">
+                      <input type="number" id="https-port" placeholder="port" min="1" max="65535">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="socks-host">SOCKS Proxy:</label>
+                    <div class="input-group">
+                      <input type="text" id="socks-host" placeholder="host">
+                      <input type="number" id="socks-port" placeholder="port" min="1" max="65535">
+                      <select id="socks-version">
+                        <option value="4">SOCKS4</option>
+                        <option value="5" selected>SOCKS5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="bypass-list">Bypass List:</label>
+                    <textarea id="bypass-list" placeholder="localhost, 127.0.0.1, *.local" rows="3"></textarea>
+                    <small>Comma-separated list of hosts to bypass proxy</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PAC Configuration -->
+              <div id="pac-config" class="config-section hidden">
+                <h4>PAC Script Configuration</h4>
+                <div class="form-group">
+                  <label for="pac-url">PAC Script URL:</label>
+                  <input type="url" id="pac-url" placeholder="https://example.com/proxy.pac">
+                </div>
+              </div>
+
+              <!-- Authentication -->
+              <div class="form-group">
+                <label for="auth-header">Authentication (Basic Auth Header):</label>
+                <input type="text" id="auth-header" placeholder="Leave empty if no authentication required">
+                <small>Base64 encoded username:password</small>
+              </div>
+            </form>
+            <div class="modal-footer">
+              <button type="button" class="btn secondary" id="cancel-profile">Cancel</button>
+              <button type="button" class="btn primary" id="save-profile">Save Profile</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rules Tab -->
+      <section id="rules-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Automation Rules</h2>
+          <button id="add-rule-btn" class="btn primary">Add Rule</button>
+        </div>
+        
+        <div id="rules-list" class="rules-list">
+          <div class="loading">Loading rules...</div>
+        </div>
+
+        <!-- Rule Editor Modal -->
+        <div id="rule-modal" class="modal hidden">
+          <div class="modal-content large">
+            <div class="modal-header">
+              <h3 id="rule-modal-title">Add Rule</h3>
+              <button class="modal-close">&times;</button>
+            </div>
+            <form id="rule-form" class="modal-body">
+              <div class="form-group">
+                <label for="rule-name">Rule Name:</label>
+                <input type="text" id="rule-name" required>
+              </div>
+              
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="rule-priority">Priority:</label>
+                  <input type="number" id="rule-priority" min="0" value="100" required>
+                  <small>Lower numbers have higher priority</small>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" id="rule-enabled" checked>
+                    Enabled
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" id="rule-stop-on-match">
+                    Stop on match
+                  </label>
+                </div>
+              </div>
+
+              <h4>When (Triggers)</h4>
+              <div id="triggers-section" class="triggers-section">
+                <button type="button" id="add-trigger" class="btn secondary small">Add Trigger</button>
+              </div>
+
+              <h4>Then (Action)</h4>
+              <div class="form-group">
+                <label for="rule-action-profile">Set Active Profile:</label>
+                <select id="rule-action-profile" required>
+                  <option value="">Select profile...</option>
+                </select>
+              </div>
+            </form>
+            <div class="modal-footer">
+              <button type="button" class="btn secondary" id="test-rule">Test Rule</button>
+              <button type="button" class="btn secondary" id="cancel-rule">Cancel</button>
+              <button type="button" class="btn primary" id="save-rule">Save Rule</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Logs Tab -->
+      <section id="logs-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Extension Logs</h2>
+          <div class="logs-controls">
+            <select id="log-level-filter">
+              <option value="">All Levels</option>
+              <option value="error">Error</option>
+              <option value="warn">Warning</option>
+              <option value="info">Info</option>
+              <option value="debug">Debug</option>
+            </select>
+            <select id="log-component-filter">
+              <option value="">All Components</option>
+            </select>
+            <button id="refresh-logs" class="btn secondary">Refresh</button>
+            <button id="clear-logs" class="btn danger">Clear Logs</button>
+            <button id="export-logs" class="btn secondary">Export</button>
+          </div>
+        </div>
+        
+        <div id="logs-container" class="logs-container">
+          <div class="loading">Loading logs...</div>
+        </div>
+      </section>
+
+      <!-- Settings Tab -->
+      <section id="settings-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Extension Settings</h2>
+        </div>
+        
+        <div class="settings-section">
+          <h3>Logging</h3>
+          <div class="form-group">
+            <label for="log-level-setting">Log Level:</label>
+            <select id="log-level-setting">
+              <option value="error">Error</option>
+              <option value="warn">Warning</option>
+              <option value="info" selected>Info</option>
+              <option value="debug">Debug</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="console-logging" checked>
+              Enable console logging
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="storage-logging" checked>
+              Enable storage logging
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Rule Evaluation</h3>
+          <div class="form-group">
+            <label for="evaluation-interval">Evaluation Interval (minutes):</label>
+            <input type="number" id="evaluation-interval" min="1" max="60" value="5">
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="cache-results" checked>
+              Cache probe results
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Notifications</h3>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="show-notifications" checked>
+              Show profile change notifications
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button id="save-settings" class="btn primary">Save Settings</button>
+          <button id="reset-settings" class="btn danger">Reset to Defaults</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- File Input for Import -->
+  <input type="file" id="import-file" accept=".json" class="hidden">
+
+  <script src="options/options.js"></script>
+</body>
+</html>

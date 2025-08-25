@@ -1,0 +1,51 @@
+{
+  "name": "proxy-switcheroo",
+  "version": "0.1.0",
+  "description": "A rules based network/proxy switcher extension for your browser.",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run compile && pnpm run copy-assets",
+    "compile": "tsc",
+    "copy-assets": "echo 'Assets copied by build.sh'",
+    "dev": "pnpm run build && web-ext run --source-dir=extension",
+    "dev:nightly": "pnpm run build && web-ext run --source-dir=extension --firefox=nightly",
+    "lint": "web-ext lint --source-dir=extension",
+    "build-extension": "pnpm run build && web-ext build --source-dir=extension --artifacts-dir=build --overwrite-dest",
+    "sign": "web-ext sign --source-dir=extension --artifacts-dir=build",
+    "clean": "rm -rf dist build",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "firefox",
+    "webextension",
+    "proxy",
+    "automation",
+    "network"
+  ],
+  "author": "Kristof Kowalski",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.0.0",
+    "web-ext": "^7.0.0"
+  },
+  "dependencies": {
+    "webextension-polyfill": "^0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krzko/proxy-switcheroo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krzko/proxy-switcheroo/issues"
+  },
+  "homepage": "https://github.com/krzko/proxy-switcheroo#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "firefox >= 115"
+  ]
+}
